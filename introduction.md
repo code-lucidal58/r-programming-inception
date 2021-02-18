@@ -36,6 +36,13 @@ my_logical = FALSE
 class(my_logical) # [1] "logical"
 ```
 
+Use `summary()` to get a quick overview of a variable.
+```r
+x <- 7
+summary(x)
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#      7       7       7       7       7       7
+```
 ## Vectors
 Vectors are one-dimension arrays that can hold numeric data, character data, or logical data.
 In other words, a vector is a simple tool to store data.
@@ -104,8 +111,41 @@ Arithmetic and Logical operands and operator are applied to each element in the 
 
 
 ## Factor
-The term factor refers to a statistical data type used to store categorical variables. The difference between a categorical variable and a continuous variable is that a categorical variable can belong to a limited number of categories. A continuous variable, on the other hand, can correspond to an infinite number of values.
+Factor refers to a statistical data type to store categorical variables.
+The difference between a categorical variable and a continuous variable is that a categorical variable can belong to a limited number of categories.
+A continuous variable corresponds to an infinite number of values.
+It is important for R to know the variable type (categorial or continuous), as each type is treated differently during model development. Example of a categorical variable is gender ("Male", "Female", "Other"). Here, there are 3 factor levels.
+`factor()` method accepts a vector and returns the factor levels. By default, it creates an unordered factor.
+```r
+gender <- c("Male", "Female", "Male", "Male", "Female")
+factor_gender <- factor(gender)  # Levels: Female Male
+```
+There are two types of categorical variables:
+* **nominal categorical variable**: variable without an implied order. All are at equal level. For example, animals_vector with the categories "Elephant", "Giraffe", "Donkey" and "Horse". Levels cannot be compared to one another.
+* **ordinal categorial variables**: have a natural ordering. For example, temperature_vector with the categories: "Low", "Medium" and "High". "Medium" stands above "Low", and "High" stands above "Medium".
+```r
+animals_vector <- c("Elephant", "Giraffe", "Donkey", "Horse")
+factor_animals_vector <- factor(animals_vector) # Levels: Donkey Elephant Giraffe Horse
 
-It is important that R knows whether it is dealing with a continuous or a categorical variable, as the statistical models you will develop in the future treat both types differently. (You will see later why this is the case.)
+# Ordered Factor
+temperature_vector <- c("High", "Low", "High","Low", "Medium")
+factor_temperature_vector <- factor(temperature_vector, order = TRUE, levels = c("Low", "Medium", "High"))
+# Levels: Low < Medium < High
+```
+The levels in a factor can be assigned new names using `levels()` function. This function accepts a vector.
+The sequence of the new names should be in alphabetic order of the old level names.
+```r
+survey_vector <- c("M", "F", "F", "M", "M")
+factor_survey_vector <- factor(survey_vector)
+levels(factor_survey_vector) <- c("Female", "Male")
+```
+Data comparison is easier using logical operators in ordered factors.
+```r
+speed_vector <- c("medium", "slow", "slow", "medium", "fast")
+factor_speed_vector <- factor(speed_vector, ordered = TRUE, levels = c("slow", "medium", "fast"))
+da2 <- factor_speed_vector[2]
+da5 <- factor_speed_vector[5]
+da2>da5 # FALSE
+```
 
-A good example of a categorical variable is sex. In many circumstances you can limit the sex categories to "Male" or "Female". (Sometimes you may need different categories. For example, you may need to consider chromosomal variation, hermaphroditic animals, or different cultural norms, but you will always have a finite number of categories.)
+## Data Frames
