@@ -149,3 +149,28 @@ da2>da5 # FALSE
 ```
 
 ## Data Frames
+A data frame stores data in rows and columns. It supports heterogeneous datatypes. `head()` and `tail()`
+return the first 5 and last 5 rows of the data frame. `str()` method returns the structure of the data frame.
+NOTE: str stands for structure, not string. It returns number of observations, variables, full list of variable names,
+data type of each variable, and the first observation. `data.frame()` accepts vectors as columns. Syntax for
+accessing data is same as for matrix. Apart from that, columns can be accessed with index number as well as column name.
+Example, `planets_df[1:5,"diameter"]` will return first 5 values of the diameter column.
+To select an entire column, these syntax are valid: `planets[,3]`, `planets[,"diameter"]`, and `planets$diameter`
+
+Dataframes allow accessing through bool vector. Only those rows are returned for whom the boolean vector element at the
+same index is TRUE. The exact same thing can be done using `subset()` function.
+```r
+subset(my_df, subset = some_condition)
+subset(my_df, subset = diameter < 1) # diameter is a column
+```
+In the above code, `some_condition` can be a boolean vector.  
+`order()` gives the ranked position of each element when it is applied on a variable, such as a vector.
+```r
+a <- c(100, 10, 1000)
+order(a)
+# 2 1 3
+a[order(a)]
+# 10 100 1000
+
+b[order(b$prop),] # if b is a dataframe and prop is a column name
+```
