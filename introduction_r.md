@@ -11,6 +11,7 @@ All commands can be directly run in R console. Comments start with `#`.
 [1] 5
 ```
 To view all stored data in the current workspace (I call it scope), use `ls()`.
+`print` command is used to print something on to console.
 
 ## Arithmetic and Logic operations with R
 Arithmetic Operations supported are :
