@@ -149,8 +149,8 @@ da2>da5 # FALSE
 ```
 
 ## Data Frames
-A data frame stores data in rows and columns. It supports heterogeneous datatypes. `head()` and `tail()`
-return the first 5 and last 5 rows of the data frame. `str()` method returns the structure of the data frame.
+A data frame stores data in rows and columns. A column has same data type. Different columns can have different data types.
+Hence it is a 2-D object. `head()` and `tail()` return the first 5 and last 5 rows of the data frame. `str()` method returns the structure of the data frame.
 NOTE: str stands for structure, not string. It returns number of observations, variables, full list of variable names,
 data type of each variable, and the first observation. `data.frame()` accepts vectors as columns. Syntax for
 accessing data is same as for matrix. Apart from that, columns can be accessed with index number as well as column name.
@@ -160,8 +160,9 @@ To select an entire column, these syntax are valid: `planets[,3]`, `planets[,"di
 Dataframes allow accessing through bool vector. Only those rows are returned for whom the boolean vector element at the
 same index is TRUE. The exact same thing can be done using `subset()` function.
 ```r
+my_df <- data.frame(scores, comments)
 subset(my_df, subset = some_condition)
-subset(my_df, subset = diameter < 1) # diameter is a column
+subset(my_df, subset = scores > 1) # diameter is a column
 ```
 In the above code, `some_condition` can be a boolean vector.  
 `order()` gives the ranked position of each element when it is applied on a variable, such as a vector.
@@ -174,3 +175,19 @@ a[order(a)]
 
 b[order(b$prop),] # if b is a dataframe and prop is a column name
 ```
+
+## Lists
+A list is a datatype that can hold any other dataype objects, like matrix, vector, another list, in an order way.
+The objects do not have to be related to one another. It is created using `list()` function. Components of a list
+can also be named, like vectors.
+```r
+my_list <- list(my_vector, my_matrix, my_df)
+names(my_list) <- c("vec", "mat", "df") # OR
+my_list <- list(vec=my_vector, mat=my_matrix, df=my_df)
+```
+The components of a list need not be of same length. This is how it is different from a dataframe.
+### Accessing list components
+* **by index**: `my_list[[1]]` to access the first element
+* **by name**: There are two ways for this: `my_list[["name"]]` or `my_list$name`
+Now, accessing specific element of the accessed component depends on the type of datatype. If the first component
+is a vector, `my_list[[1]][2]` will return the 2nd element of the vector in position 1 of the list.
