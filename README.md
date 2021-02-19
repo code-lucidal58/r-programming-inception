@@ -7,5 +7,5 @@ Datacamp. For each course in Datacamp, there is a separate markdown file, with t
 same as course name. If I learn something from outside Datacamp, I shall add it to miscellaneous folder.
 
 ## Contents
-* [Introduction to R](#introduction_r.md)
+* [Introduction to R](introduction_r.md)
 * [Intermediate R](intermediate_r.md)
